@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="https://www.springframework.org/schema/beans"
+       xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="https://www.springframework.org/schema/context"
+       xmlns:aop="https://www.springframework.org/schema/aop"
+       xsi:schemaLocation="https://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd
+           https://www.springframework.org/schema/context
+           https://www.springframework.org/schema/context/spring-context.xsd
+           https://www.springframework.org/schema/aop
+           https://www.springframework.org/schema/aop/spring-aop.xsd">
+           
+    <aop:aspectj-autoproxy/>
+
+    <bean id="loggingAspect" class="com.library.aspect.LoggingAspect"/>
+
+    <bean id="bookRepository" class="com.library.repository.BookRepository"/>
+
+    <bean id="bookService" class="com.library.service.BookService">
+        <property name="bookRepository" ref="bookRepository"/>
+    </bean>
+    
+     <!-- Bean definition for BookService with constructor injection -->
+    <bean id="bookService1" class="com.library.service.BookService">
+        <constructor-arg ref="bookRepository"/>
+    </bean>
+
+    <context:component-scan base-package="com.library.App"/>
+</beans>
+
